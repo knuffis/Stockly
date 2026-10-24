@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Stockly mascot: a happy, freshly opened box with sparkles. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- shadow -->
+    <path android:fillColor="#1F000000" android:pathData="M33,80h42a2,2 0,0 1,0 4h-42a2,2 0,0 1,0 -4z" />
+    <!-- box body -->
+    <path android:fillColor="#FFFFC857" android:pathData="M33,47h42v28a5,5 0,0 1,-5 5h-32a5,5 0,0 1,-5 -5z" />
+    <!-- flaps -->
+    <path android:fillColor="#FFFFE29A" android:pathData="M33,47L54,47L47,37L27,40Z" />
+    <path android:fillColor="#FFFFE29A" android:pathData="M75,47L54,47L61,37L81,40Z" />
+    <path android:fillColor="#FFF2A93B" android:pathData="M33,47h42v4h-42z" />
+    <!-- eyes -->
+    <path android:fillColor="#FF1E1A3C" android:pathData="M42.7,61a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0" />
+    <path android:fillColor="#FF1E1A3C" android:pathData="M59.7,61a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M45.6,60a0.9,0.9 0,1 0,1.8 0a0.9,0.9 0,1 0,-1.8 0" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M62.6,60a0.9,0.9 0,1 0,1.8 0a0.9,0.9 0,1 0,-1.8 0" />
+    <!-- cheeks -->
+    <path android:fillColor="#8CFF6B6B" android:pathData="M37.4,67a2.6,2 0,1 0,5.2 0a2.6,2 0,1 0,-5.2 0" />
+    <path android:fillColor="#8CFF6B6B" android:pathData="M65.4,67a2.6,2 0,1 0,5.2 0a2.6,2 0,1 0,-5.2 0" />
+    <!-- smile -->
+    <path
+        android:pathData="M49,67Q54,72.5 59,67"
+        android:strokeColor="#FF1E1A3C"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round" />
+    <!-- sparkles -->
+    <path android:fillColor="#FFFFFFFF" android:pathData="M74,24Q75,30 81,31Q75,32 74,38Q73,32 67,31Q73,30 74,24Z" />
+    <path android:fillColor="#D9FFFFFF" android:pathData="M33,26Q33.6,29.4 37,30Q33.6,30.6 33,34Q32.4,30.6 29,30Q32.4,29.4 33,26Z" />
+</vector>

@@ -1,0 +1,6 @@
+<resources>
+    <style name="Theme.Stockly" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/stockly_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>

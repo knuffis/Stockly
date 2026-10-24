@@ -6,13 +6,15 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
-import androidx.compose.ui.graphics.Color
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import com.stockly.app.ui.InventoriesScreen
 import com.stockly.app.ui.ItemsScreen
+import com.stockly.app.ui.StocklyTheme
 
 class MainActivity : ComponentActivity() {
     private val viewModel: StocklyViewModel by viewModels()
@@ -21,18 +23,23 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val colors = if (isSystemInDarkTheme()) {
-                darkColorScheme(primary = Color(0xFF7FD3B6), secondary = Color(0xFF9CCBBA))
-            } else {
-                lightColorScheme(primary = Color(0xFF00695C), secondary = Color(0xFF4A635C))
-            }
-            MaterialTheme(colorScheme = colors) {
-                val open = viewModel.openInventory
-                if (open == null) {
-                    InventoriesScreen(viewModel)
-                } else {
-                    BackHandler { viewModel.close() }
-                    ItemsScreen(viewModel, open)
+            StocklyTheme {
+                AnimatedContent(
+                    targetState = viewModel.openInventoryId,
+                    transitionSpec = {
+                        val forward = targetState != null
+                        (slideInHorizontally { w -> if (forward) w else -w } + fadeIn()) togetherWith
+                            (slideOutHorizontally { w -> if (forward) -w / 3 else w } + fadeOut())
+                    },
+                    label = "screen",
+                ) { openId ->
+                    val open = viewModel.inventories.firstOrNull { it.id == openId }
+                    if (open == null) {
+                        InventoriesScreen(viewModel)
+                    } else {
+                        BackHandler { viewModel.close() }
+                        ItemsScreen(viewModel, open)
+                    }
                 }
             }
         }

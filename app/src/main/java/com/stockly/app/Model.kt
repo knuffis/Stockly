@@ -12,9 +12,20 @@ data class Item(
     val unitPrice: Double,
     val link: String?,
     val createdAt: Long,
+    /** Absolute path of the item's photo in app storage, if it has one. */
+    val imagePath: String? = null,
 ) {
     val totalValue: Double get() = quantity * unitPrice
 }
+
+/** What the add/edit form produces, before it becomes an [Item]. */
+data class ItemDraft(
+    val name: String = "",
+    val quantity: Int? = null,
+    val unitPrice: Double? = null,
+    val link: String? = null,
+    val imagePath: String? = null,
+)
 
 data class Inventory(
     val id: Long,
@@ -81,6 +92,7 @@ class InventoryStore(context: Context) {
         put("unitPrice", item.unitPrice)
         put("link", item.link ?: JSONObject.NULL)
         put("createdAt", item.createdAt)
+        put("imagePath", item.imagePath ?: JSONObject.NULL)
     }
 
     private fun inventoryFromJson(o: JSONObject): Inventory {
@@ -100,5 +112,6 @@ class InventoryStore(context: Context) {
         unitPrice = o.optDouble("unitPrice", 0.0),
         link = if (o.isNull("link")) null else o.optString("link").ifBlank { null },
         createdAt = o.optLong("createdAt"),
+        imagePath = if (o.isNull("imagePath")) null else o.optString("imagePath").ifBlank { null },
     )
 }

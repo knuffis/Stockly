@@ -22,6 +22,10 @@ class StocklyViewModel(app: Application) : AndroidViewModel(app) {
 
     private var lastId = 0L
 
+    init {
+        Photos.cleanup(app, inventories.flatMap { inv -> inv.items.mapNotNull { it.imagePath } }.toSet())
+    }
+
     /** Unique, increasing ids even when two things are created in the same millisecond. */
     private fun newId(): Long {
         val now = System.currentTimeMillis()
@@ -57,30 +61,49 @@ class StocklyViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun deleteInventory(inventory: Inventory) {
+        inventory.items.forEach { Photos.delete(it.imagePath) }
         update(inventories.filterNot { it.id == inventory.id })
     }
 
-    fun addItem(name: String, quantity: Int, unitPrice: Double, link: String?) {
-        val item = Item(
-            id = newId(),
-            name = name.trim(),
-            quantity = quantity,
-            unitPrice = unitPrice,
-            link = link,
-            createdAt = System.currentTimeMillis(),
-        )
+    private fun ItemDraft.toItem() = Item(
+        id = newId(),
+        name = name.trim(),
+        quantity = quantity ?: 1,
+        unitPrice = unitPrice ?: 0.0,
+        link = link,
+        createdAt = System.currentTimeMillis(),
+        imagePath = imagePath,
+    )
+
+    fun addItem(draft: ItemDraft) {
+        val item = draft.toItem()
         updateOpen { it + item }
     }
 
-    fun editItem(item: Item, name: String, quantity: Int, unitPrice: Double, link: String?) {
+    fun addItems(drafts: List<ItemDraft>) {
+        val items = drafts.map { it.toItem() }
+        updateOpen { it + items }
+    }
+
+    fun editItem(item: Item, draft: ItemDraft) {
+        if (item.imagePath != draft.imagePath) Photos.delete(item.imagePath)
         updateOpen { items ->
             items.map {
-                if (it.id == item.id) it.copy(name = name.trim(), quantity = quantity, unitPrice = unitPrice, link = link) else it
+                if (it.id == item.id) {
+                    it.copy(
+                        name = draft.name.trim(),
+                        quantity = draft.quantity ?: it.quantity,
+                        unitPrice = draft.unitPrice ?: it.unitPrice,
+                        link = draft.link,
+                        imagePath = draft.imagePath,
+                    )
+                } else it
             }
         }
     }
 
     fun removeItem(item: Item) {
+        Photos.delete(item.imagePath)
         updateOpen { items -> items.filterNot { it.id == item.id } }
     }
 

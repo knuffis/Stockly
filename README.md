@@ -6,6 +6,9 @@ A simple Android app for keeping track of inventories.
 - Tap an inventory to see its items. Each item has a name, quantity, price per unit and an optional product link.
 - Long-press an item to move it up or down, edit it, or remove it. Long-press an inventory to rename or delete it.
 - Sort items by name (A–Z, Z–A), date (newest, oldest) or price (high to low, low to high).
+- Give items a photo from the camera or gallery; tap the thumbnail to see it full size.
+- Add an item from a product link: Stockly reads the name, price and picture from the page.
+- Scan a receipt: text recognition runs on the phone (ML Kit, offline), and you review the items before adding.
 
 Everything is stored on the phone; no account needed.
 
@@ -15,3 +18,7 @@ Every push to `main` builds the app and puts `stockly.apk` on the **latest** rel
 https://github.com/knuffis/Stockly/releases/tag/latest
 
 Open that page on your phone, download `stockly.apk`, and install it (allow installs from unknown sources when asked).
+
+## Credits
+
+Manrope font by The Manrope Project Authors, under the SIL Open Font License (see `licenses/`).

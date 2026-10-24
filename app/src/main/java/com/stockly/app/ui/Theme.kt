@@ -10,93 +10,115 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.stockly.app.R
 
-val Grape = Color(0xFF6C4CF1)
-val GrapeDark = Color(0xFF4B2FC9)
-val Coral = Color(0xFFFF6B6B)
-val Mango = Color(0xFFFFB627)
-val Mint = Color(0xFF1FC8A0)
-val Sky = Color(0xFF3FA7FF)
-val Bubblegum = Color(0xFFFF5FA2)
-val Ink = Color(0xFF1E1A3C)
+val Indigo = Color(0xFF5B4CF5)
+val Coral = Color(0xFFFF6B5B)
+val Teal = Color(0xFF12B5A0)
+val Azure = Color(0xFF2F80ED)
+val Amber = Color(0xFFF2A516)
+val Rose = Color(0xFFE8508E)
 
 /** Each inventory gets one of these, picked from its id so it never changes. */
-val AccentColors = listOf(Grape, Coral, Mint, Sky, Mango, Bubblegum)
+val AccentColors = listOf(Indigo, Coral, Teal, Azure, Amber, Rose)
 
 fun accentFor(id: Long): Color = AccentColors[(id % AccentColors.size).toInt()]
 
-val HeroGradient = Brush.linearGradient(listOf(Grape, Bubblegum, Mango))
+/** The deep card at the top of the start screen. */
+val HeroGradient = Brush.linearGradient(listOf(Color(0xFF17142E), Color(0xFF3A2FB0), Indigo))
 
-fun accentGradient(accent: Color): Brush =
-    Brush.linearGradient(listOf(accent, accent.copy(alpha = 0.75f).compositeOver(Color.White)))
-
-private fun Color.compositeOver(background: Color): Color {
-    val a = alpha
-    return Color(
-        red = red * a + background.red * (1 - a),
-        green = green * a + background.green * (1 - a),
-        blue = blue * a + background.blue * (1 - a),
-    )
-}
+val Manrope = FontFamily(
+    Font(R.font.manrope_regular, FontWeight.Normal),
+    Font(R.font.manrope_medium, FontWeight.Medium),
+    Font(R.font.manrope_semi_bold, FontWeight.SemiBold),
+    Font(R.font.manrope_bold, FontWeight.Bold),
+    Font(R.font.manrope_extra_bold, FontWeight.ExtraBold),
+)
 
 private val LightColors = lightColorScheme(
-    primary = Grape,
+    primary = Indigo,
     onPrimary = Color.White,
-    primaryContainer = Color(0xFFE9E3FF),
-    onPrimaryContainer = GrapeDark,
+    primaryContainer = Color(0xFFECEAFE),
+    onPrimaryContainer = Color(0xFF2A1F9E),
     secondary = Coral,
     onSecondary = Color.White,
-    secondaryContainer = Color(0xFFFFE1E1),
-    tertiary = Mint,
-    background = Color(0xFFFBF8FF),
-    onBackground = Ink,
-    surface = Color(0xFFFBF8FF),
-    onSurface = Ink,
-    surfaceVariant = Color(0xFFF0ECFA),
-    onSurfaceVariant = Color(0xFF615C7A),
+    tertiary = Teal,
+    background = Color(0xFFF5F5F7),
+    onBackground = Color(0xFF111118),
+    surface = Color(0xFFF5F5F7),
+    onSurface = Color(0xFF111118),
+    surfaceVariant = Color(0xFFEDEDF1),
+    onSurfaceVariant = Color(0xFF6B6B7B),
+    surfaceContainerLowest = Color.White,
     surfaceContainerLow = Color.White,
-    surfaceContainer = Color(0xFFF5F1FE),
-    surfaceContainerHigh = Color(0xFFEFEAFB),
+    surfaceContainer = Color.White,
+    surfaceContainerHigh = Color.White,
+    surfaceContainerHighest = Color(0xFFEDEDF1),
+    outline = Color(0xFFCFCFD8),
+    outlineVariant = Color(0xFFE6E6EC),
     error = Color(0xFFE5484D),
 )
 
 private val DarkColors = darkColorScheme(
-    primary = Color(0xFFB7A6FF),
-    onPrimary = Color(0xFF2A1680),
-    primaryContainer = GrapeDark,
-    onPrimaryContainer = Color(0xFFE9E3FF),
-    secondary = Color(0xFFFF9B9B),
-    tertiary = Color(0xFF6FE3C6),
-    background = Color(0xFF15122B),
-    onBackground = Color(0xFFEDEAFB),
-    surface = Color(0xFF15122B),
-    onSurface = Color(0xFFEDEAFB),
-    surfaceVariant = Color(0xFF2A2547),
-    onSurfaceVariant = Color(0xFFBDB7D9),
-    surfaceContainerLow = Color(0xFF1D1938),
-    surfaceContainer = Color(0xFF221E40),
-    surfaceContainerHigh = Color(0xFF2A2549),
-    error = Color(0xFFFF8A8D),
+    primary = Color(0xFF9D93FF),
+    onPrimary = Color(0xFF1B1366),
+    primaryContainer = Color(0xFF2C2570),
+    onPrimaryContainer = Color(0xFFE4E0FF),
+    secondary = Color(0xFFFF8E82),
+    tertiary = Color(0xFF4FD8C3),
+    background = Color(0xFF0D0D11),
+    onBackground = Color(0xFFF2F2F5),
+    surface = Color(0xFF0D0D11),
+    onSurface = Color(0xFFF2F2F5),
+    surfaceVariant = Color(0xFF22222A),
+    onSurfaceVariant = Color(0xFFA0A0AE),
+    surfaceContainerLowest = Color(0xFF131318),
+    surfaceContainerLow = Color(0xFF17171D),
+    surfaceContainer = Color(0xFF1B1B22),
+    surfaceContainerHigh = Color(0xFF202028),
+    surfaceContainerHighest = Color(0xFF26262E),
+    outline = Color(0xFF3A3A44),
+    outlineVariant = Color(0xFF26262E),
+    error = Color(0xFFFF7A7E),
 )
 
 private val StocklyShapes = Shapes(
-    extraSmall = RoundedCornerShape(10.dp),
-    small = RoundedCornerShape(14.dp),
-    medium = RoundedCornerShape(20.dp),
-    large = RoundedCornerShape(28.dp),
-    extraLarge = RoundedCornerShape(32.dp),
+    extraSmall = RoundedCornerShape(8.dp),
+    small = RoundedCornerShape(12.dp),
+    medium = RoundedCornerShape(18.dp),
+    large = RoundedCornerShape(24.dp),
+    extraLarge = RoundedCornerShape(28.dp),
+)
+
+private fun TextStyle.m(weight: FontWeight? = null, tracking: Float? = null) = copy(
+    fontFamily = Manrope,
+    fontWeight = weight ?: fontWeight,
+    letterSpacing = tracking?.sp ?: letterSpacing,
 )
 
 private val base = Typography()
-private val StocklyTypography = base.copy(
-    displaySmall = base.displaySmall.copy(fontWeight = FontWeight.Black, letterSpacing = (-1).sp),
-    headlineMedium = base.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
-    titleLarge = base.titleLarge.copy(fontWeight = FontWeight.Bold),
-    titleMedium = base.titleMedium.copy(fontWeight = FontWeight.Bold),
-    labelLarge = base.labelLarge.copy(fontWeight = FontWeight.Bold),
+private val StocklyTypography = Typography(
+    displayLarge = base.displayLarge.m(FontWeight.ExtraBold, -1.5f),
+    displayMedium = base.displayMedium.m(FontWeight.ExtraBold, -1.2f),
+    displaySmall = base.displaySmall.m(FontWeight.ExtraBold, -1f),
+    headlineLarge = base.headlineLarge.m(FontWeight.ExtraBold, -0.8f),
+    headlineMedium = base.headlineMedium.m(FontWeight.ExtraBold, -0.6f),
+    headlineSmall = base.headlineSmall.m(FontWeight.Bold, -0.4f),
+    titleLarge = base.titleLarge.m(FontWeight.Bold, -0.3f),
+    titleMedium = base.titleMedium.m(FontWeight.Bold, -0.1f),
+    titleSmall = base.titleSmall.m(FontWeight.SemiBold),
+    bodyLarge = base.bodyLarge.m(FontWeight.Medium, 0f),
+    bodyMedium = base.bodyMedium.m(FontWeight.Medium, 0f),
+    bodySmall = base.bodySmall.m(FontWeight.Medium, 0f),
+    labelLarge = base.labelLarge.m(FontWeight.SemiBold),
+    labelMedium = base.labelMedium.m(FontWeight.SemiBold),
+    labelSmall = base.labelSmall.m(FontWeight.SemiBold),
 )
 
 @Composable

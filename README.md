@@ -11,5 +11,7 @@ Everything is stored on the phone; no account needed.
 
 ## Getting the APK
 
-Every push to `main` runs the **Build APK** workflow. Open the latest run under the Actions tab and download the
-`stockly-apk` artifact, unzip it, and install `app-debug.apk` on your phone (allow installs from unknown sources).
+Every push to `main` builds the app and puts `stockly.apk` on the **latest** release:
+https://github.com/knuffis/Stockly/releases/tag/latest
+
+Open that page on your phone, download `stockly.apk`, and install it (allow installs from unknown sources when asked).
